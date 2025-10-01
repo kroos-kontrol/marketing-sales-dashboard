@@ -1,4 +1,4 @@
-name,date,mql,sal,sql,trials,closed,mrr,cost
+campaign_name,date,mql,sal,sql,trials,closed,mrr,cost
 Salesforce Summit,2014-02-15,1235,845,545,134,89,651494,500000
 CS Users Whitepaper,2014-03-13,323,245,221,38,12,68988,10000
 Chicago Sales Conference,2014-06-10,600,410,290,26,12,25000,100000
