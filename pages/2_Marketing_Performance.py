@@ -178,7 +178,17 @@ st.info(
     - **Area for Review:** Point out the campaign with the lowest return and diagnose potential issues based on its funnel conversion rates.
     """
 )
-st.markdown("---")
+
+
+st.subheader("Assumptions")
+st.warning(
+    """
+    - **Average Deal Size:** The ADS is calculated as a monthly company-wide average from the service data, not on a per-rep basis.
+    - **Sales Velocity:** The number of opportunities is a placeholder value. For a more accurate calculation, this should be linked to the SALs from the marketing data.
+    - **Negative Sales:** Negative sales values are treated as deal reversals or clawbacks and are included in the total sales calculations.
+    """
+)
+
 st.subheader("Benchmark Sources")
 for key, value in benchmarks.items():
     st.markdown(f"- **{key}**:  [{value['source']}]({value['url']}).")
