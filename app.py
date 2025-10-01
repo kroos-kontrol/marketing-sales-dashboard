@@ -7,6 +7,7 @@ st.set_page_config(
     page_icon="📊",
     layout="wide"
 )
+st.logo("assets/sprinto_logo.png")
 
 st.title("📊 Executive Summary")
 st.markdown("## The Command Center for Marketing, Sales, and Customer Success")
