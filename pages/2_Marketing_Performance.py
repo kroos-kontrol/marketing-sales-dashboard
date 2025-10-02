@@ -199,8 +199,47 @@ st.markdown("---")
 st.subheader("Analyst Insights")
 st.info(
     """
-    - **Top Performer:** Identify which campaign has the highest MRR per dollar spend and why.
-    - **Area for Review:** Point out the campaign with the lowest return and diagnose potential issues based on its funnel conversion rates.
+📊 **Overall Funnel Performance**
+
+- Strong Funnel Efficiency: Overall, the **MRR per dollar spent** and **funnel conversion ratios** (e.g., MQL to SQL, SAL to SQL, etc.) exceeded industry benchmarks, indicating strong marketing and sales alignment across most campaigns.
+    
+- Win Rate Below Benchmark:Despite overall funnel efficiency, the **opportunity-to-win conversion rate (Win Rate)** lagged behind, sitting at **13.3% vs. 20% benchmark**. This suggests potential gaps in late-stage sales execution or opportunity qualification.
+    
+🌟 **Top-Performing Campaign** 
+
+Cloud Best Practices Seminar: This campaign outperformed all benchmarks, with a win rate of 28.5%, significantly exceeding the 20% benchmark. It was the only campaign with a win rate above the industry standard, suggesting high-quality leads and strong alignment between marketing, SDRs, and AEs.
+
+🚩 **Underperforming Campaigns** 
+
+Low SQL to Trial Conversion:  
+- CS Users Whitepaper (4%)  
+- Chicago Sales Conference (2%)  
+- Hong Kong Sales Conference (6%)
+
+This may indicate:  
+- Low buyer intent at the SQL stage despite initial interest.  
+- Gaps in SDR qualification or misalignment between SDR evaluation and AE expectations.  
+- Lack of compelling trial triggers or friction in moving from conversation to product experience.
+
+📈 **High-Volume but Cost-Inefficient Campaign**  
+Salesforce Summit: This was the largest campaign by volume, delivering MQL-to-Close conversions above benchmark, but at a ~40% higher cost per closed customer than the $4000 benchmark. Additionally, its SQL to Closed rate was 16.3%, below the 20% benchmark, suggesting potential room to improve AE close effectiveness or refine SQL quality.
+
+🔻 **Lowest Performing Campaign**  
+Chicago Sales Conference: This campaign had the highest cost per closed customer ($8333), more than 2x the benchmark, and conversion from MQL to Close was just 2% vs. 5% benchmark. This indicates a clear lack of ROI and signals a need for re-evaluation or redesign of similar event-led campaigns.
+    """
+)
+
+
+st.subheader("Recommended Actions & Levers")
+st.success(
+    """
+**1) Double Down on High-Intent, Educational Campaigns**: Replicate and scale campaigns like the Cloud Best Practices Seminar that focus on actionable insights and real-world use cases.
+
+**2) Strengthen SDR–AE Handoff and Late-Stage Sales Execution**: Review qualification criteria and alignment between SDRs and AEs for high-volume events like Salesforce Summit.
+
+**3) Audit Audience Quality and Campaign Fit for Underperforming Initiatives**: Conduct a post-mortem on campaigns like Chicago Sales Conference, Hong Kong Sales Conference, and CS Users Whitepaper to understand audience quality, messaging mismatch, or qualification gaps.
+
+**4) Discontinue Participation in the Chicago Sales Conference**: Opt out of future editions unless the format, targeting, or audience curation changes significantly.
     """
 )
 
@@ -208,9 +247,24 @@ st.info(
 st.subheader("Assumptions")
 st.warning(
     """
-    - **Average Deal Size:** The ADS is calculated as a monthly company-wide average from the service data, not on a per-rep basis.
-    - **Sales Velocity:** The number of opportunities is a placeholder value. For a more accurate calculation, this should be linked to the SALs from the marketing data.
-    - **Negative Sales:** Negative sales values are treated as deal reversals or clawbacks and are included in the total sales calculations.
+**Assumptions**
+
+1. **SQL Stage Definition**  
+   - SQL stage is assumed to represent the point where an opportunity has been created because the SDR has confirmed a meeting.  
+   - Therefore, SQL to Closed Rate can be used interchangeably with Win Rate.
+
+2. **MQL to Closed Conversion Benchmark**  
+   - Calculated using funnel benchmarks:  
+     MQL → SAL → SQL → Closed Won = 41% * 61% * 20%
+
+3. **Campaign Cost per Closed Customer & MRR per Dollar Spent**  
+   - Benchmarks are based on:  
+     - Target LTV/CAC ratio: 3:1  
+     - Customer lifetime: 36 months  
+     - Average Revenue per Year (ACV): $10,000 → LTV = 10,000 × 3  
+     - Target CAC: LTV / 3 = $10,000  
+     - Campaign cost assumption: 40% of CAC → Target campaign cost = $4,000  
+     - MRR per Dollar Spent: Benchmark = $833.33 MRR / $4,000 Ad Spend ≈ 0.21
     """
 )
 

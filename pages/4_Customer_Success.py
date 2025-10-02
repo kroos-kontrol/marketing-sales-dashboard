@@ -53,9 +53,9 @@ if df is None:
 
 # --- Benchmarks Dictionary ---
 benchmarks = {
-    "NRR": {"value": 1.20, "source": "Top-Tier SaaS Companies", "url": "#"},
-    "GRR": {"value": 0.95, "source": "Healthy B2B SaaS", "url": "#"},
-    "Monthly Revenue Churn": {"value": 0.004, "source": "Healthy Monthly Churn Target", "url": "#"}
+    "NRR": {"value": 1.20, "source": "Wudpecker", "url": "https://www.wudpecker.io/blog/retention-benchmarks-for-b2b-saas-in-2025"},
+    "GRR": {"value": 0.95, "source": "Wudpecker", "url": "https://www.wudpecker.io/blog/retention-benchmarks-for-b2b-saas-in-2025"},
+    "Monthly Revenue Churn": {"value": 0.004, "source": "Hubfi", "url": "https://www.hubifi.com/blog/calculate-saas-churn-rate"}
 }
 
 # --------------------
@@ -213,4 +213,4 @@ st.warning(
 
 st.subheader("Benchmark Sources")
 for key, value in benchmarks.items():
-    st.markdown(f"- **{key}**: Sourced from [{value['source']}]({value['url']}).")
+    st.markdown(f"- **{key}**: [{value['source']}]({value['url']}).")

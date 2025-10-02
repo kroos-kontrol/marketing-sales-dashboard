@@ -55,10 +55,10 @@ if df is None:
 
 # --- Benchmarks Dictionary ---
 benchmarks = {
-    "Quota Attainment": {"value": 0.75, "source": "SaaS Industry Standard", "url": "#"},
-    "Percent of Reps at Quota": {"value": 0.50, "source": "Internal Company Goal", "url": "#"},
-    "Sales Cycle": {"value": 92, "source": "GRC Software Benchmark Report", "url": "#"},
-    "Pipeline Coverage": {"value": 4.0, "source": "Best Practice for B2B Sales", "url": "#"}
+    "Quota Attainment": {"value": 0.75, "source": "Sapphire Ventures & KeyBanc", "url": "https://info.sapphireventures.com/2024-keybanc-capital-markets-and-sapphire-ventures-saas-survey"},
+    "Percent of Reps at Quota": {"value": 0.51, "source": "Bridge Group SaaS AE Report", "url": "https://charliecowan.ai/blog/5-essential-learnings-from-the-2024-saas-ae-report-bridge-group"},
+    "Sales Cycle": {"value": 92, "source": "Bridge Group SaaS AE Report", "url": "https://www.cfodesk.co.il/wp-content/uploads/2023/09/SaaS_AE_Metrics.pdf"},
+    "Pipeline Coverage": {"value": 4.0, "source": "SaaStr", "url": "https://www.saastr.com/dear-saastr-what-are-good-benchmarks-for-sales-productivity-in-saas/#:~:text=6,marketing%20isn%E2%80%99t%20generating%20sufficient%20leads"}
 }
 
 # --------------------
@@ -256,4 +256,4 @@ st.warning(
 
 st.subheader("Benchmark Sources")
 for key, value in benchmarks.items():
-    st.markdown(f"- **{key}**: Sourced from [{value['source']}]({value['url']}).")
+    st.markdown(f"- **{key}**: [{value['source']}]({value['url']}).")
