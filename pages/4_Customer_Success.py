@@ -61,15 +61,17 @@ benchmarks = {
 # --------------------
 # Main Page Content
 # --------------------
-st.title(" flywheel Customer Success Dashboard")
+st.title(" Customer Success Dashboard")
 st.markdown("Analyze customer retention, revenue churn, and account growth.")
 
 # --- Filters ---
-st.sidebar.header("Filters")
-min_date = df['date'].min()
-max_date = df['date'].max()
-date_range = st.sidebar.date_input("Select Date Range", [min_date, max_date], min_value=min_date, max_value=max_date)
-start_date, end_date = date_range
+# st.sidebar.header("Filters")
+# min_date = df['date'].min()
+# max_date = df['date'].max()
+# date_range = st.sidebar.date_input("Select Date Range", [min_date, max_date], min_value=min_date, max_value=max_date)
+start_date = df['date'].min()
+end_date = df['date'].max()
+# start_date, end_date = date_range
 
 # --- Filter Dataframe ---
 filtered_df = df[(df['date'] >= pd.to_datetime(start_date)) & (df['date'] <= pd.to_datetime(end_date))]
@@ -79,28 +81,63 @@ if filtered_df.empty:
     st.stop()
 
 # --- KPIs: The Health Check ---
-latest_month = filtered_df.sort_values('date', ascending=False).iloc[0]
-latest_grr = latest_month['grr']
-latest_rev_churn = latest_month['revenue_churn_rate']
-latest_arpa = latest_month['arpa']
+# REPLACE the existing KPI section with this one
 
-## NEW: Calculate Target Expansion MRR ##
+st.header("Health Check (Period Averages)")
+
+# --- NEW: Calculate averages over the entire filtered period ---
+avg_grr = filtered_df['grr'].mean()
+avg_rev_churn = filtered_df['revenue_churn_rate'].mean()
+avg_arpa = filtered_df['arpa'].mean()
+
+# The Target Expansion MRR is forward-looking, so it should still be based on the latest month's data.
+latest_month = filtered_df.sort_values('date', ascending=False).iloc[0]
 target_nrr = benchmarks['NRR']['value']
 starting_mrr = latest_month['book_of_business_bom']
 churn_mrr = latest_month['churn_mrr']
-# Target Expansion MRR = (Target NRR * Starting MRR) - Starting MRR + Churn MRR
 target_expansion_mrr = (target_nrr * starting_mrr) - starting_mrr + churn_mrr
 
-st.header("Monthly Health Check (Latest Month)")
 kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-kpi1.metric(label="Gross Revenue Retention (GRR)", value=f"{latest_grr:.1%}")
-kpi2.metric(label="Monthly Revenue Churn", value=f"{latest_rev_churn:.2%}")
-kpi3.metric(label="Average Revenue Per Account", value=f"${latest_arpa:,.0f}")
-kpi4.metric(
-    label="Target Expansion MRR to hit 120% NRR",
-    value=f"${target_expansion_mrr:,.0f}",
-    help="The amount of upsell/cross-sell MRR needed this month to achieve the NRR benchmark."
-)
+
+with kpi1:
+    # UPDATED: Use average GRR and a new label
+    st.metric(label="Avg. Monthly GRR", value=f"{avg_grr:.1%}")
+    st.markdown(f"Benchmark: >{benchmarks['GRR']['value']:.0%}")
+
+with kpi2:
+    # UPDATED: Use average churn and a new label
+    st.metric(label="Avg. Monthly Revenue Churn", value=f"{avg_rev_churn:.2%}")
+    st.markdown(f"Benchmark: <{benchmarks['Monthly Revenue Churn']['value']:.1%}")
+
+with kpi3:
+    # The main metric remains the average over the period
+    st.metric(label="Avg. Revenue Per Account", value=f"${avg_arpa:,.0f}")
+    
+    # --- UPDATED: Trend calculation now compares first vs. last month ---
+    if len(filtered_df) > 1:
+        # Sort by date to easily find the first and last entry
+        sorted_df = filtered_df.sort_values('date')
+        first_month_arpa = sorted_df.iloc[0]['arpa']
+        last_month_arpa = sorted_df.iloc[-1]['arpa']
+        
+        # Determine trend direction and color
+        if last_month_arpa > first_month_arpa:
+            trend_text = "▲ Trending Up"
+            color = "green"
+        else:
+            trend_text = "▼ Trending Down"
+            color = "red"
+            
+        st.markdown(f"<span style='color:{color};'>{trend_text}</span> (vs. first month)", unsafe_allow_html=True)
+
+with kpi4:
+    # This metric remains the same as it's a forward-looking target
+    st.metric(
+        label="Target Expansion MRR",
+        value=f"${target_expansion_mrr:,.0f}",
+        help="Based on the latest month's starting MRR, this is the upsell needed to hit the NRR goal."
+    )
+    st.markdown(f"Benchmark: >{benchmarks['NRR']['value']:.1%}")
 
 st.divider()
 

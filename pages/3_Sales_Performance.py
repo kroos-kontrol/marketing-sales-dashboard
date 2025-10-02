@@ -113,10 +113,17 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Manager Performance")
-    manager_perf = filtered_df.groupby('manager')['quota_attainment'].mean().sort_values(ascending=False).reset_index()
+    # UPDATED CALCULATION LOGIC
+    manager_perf_agg = filtered_df.groupby('manager').agg(
+        total_sales=('sales', 'sum'),
+        total_quota=('quota', 'sum')
+    ).reset_index()
+    manager_perf_agg['quota_attainment'] = manager_perf_agg['total_sales'] / manager_perf_agg['total_quota']
+    manager_perf = manager_perf_agg.sort_values('quota_attainment', ascending=False)
+    
+    # The rest of the chart code remains the same
     fig_manager = px.bar(manager_perf, x='quota_attainment', y='manager', orientation='h', title="Avg. Quota Attainment by Manager", text='quota_attainment')
     fig_manager.update_traces(texttemplate='%{text:.1%}', textposition='outside')
-    # FIX: Dynamically set x-axis range
     max_manager_attainment = manager_perf['quota_attainment'].max()
     fig_manager.update_layout(xaxis_range=[0, max_manager_attainment * 1.15])
     st.plotly_chart(fig_manager, use_container_width=True)
@@ -147,19 +154,54 @@ with tier3:
     st.write(bottom_performers)
 
 st.divider()
-
-# --- Monthly Rep Performance Heatmap (FIXED) ---
 st.header("Monthly Rep Performance Heatmap")
-rep_monthly_pivot = filtered_df.pivot_table(index='sales_rep', columns=filtered_df['month_year'].dt.strftime('%b %Y'), values='quota_attainment', aggfunc='mean')
+
+# --- Step 1: Create the Pivot Table ---
+# We create a table with reps as rows and months as columns.
+# The value in each cell is the quota attainment for that rep in that month.
+# We use the raw 'month_year' (datetime object) for columns to ensure correct chronological sorting.
+rep_monthly_pivot = filtered_df.pivot_table(
+    index='sales_rep',
+    columns='month_year',
+    values='quota_attainment',
+    aggfunc='mean' # Since there's one entry per rep/month, 'mean' just selects that value.
+)
+
+# --- Step 2: Prepare the Data for Plotting ---
+# Transpose the table so months become the rows (Y-axis) and reps become columns (X-axis).
+# This is better for visualization if you have more reps than months.
 transposed_pivot = rep_monthly_pivot.T
+
+# Create a naturally sorted list of sales rep names for the x-axis.
+# This ensures "Rep 10" comes after "Rep 9", not after "Rep 1".
+try:
+    sorted_rep_names = sorted(transposed_pivot.columns, key=lambda x: int(x.split(' ')[1]))
+    # Re-order the columns in our final dataframe based on this sorted list.
+    final_pivot_for_chart = transposed_pivot[sorted_rep_names]
+except (ValueError, IndexError):
+    # Fallback if rep names are not in the "Rep X" format
+    sorted_rep_names = sorted(transposed_pivot.columns)
+    final_pivot_for_chart = transposed_pivot[sorted_rep_names]
+
+
+
+
+# --- Step 4: Create the Heatmap Visualization ---
+st.subheader("Heatmap Visual")
+# We use the unformatted datetime index for plotting to ensure Plotly sorts it correctly.
 fig_heatmap = px.imshow(
-    transposed_pivot,
+    final_pivot_for_chart,
     text_auto=".0%",
     aspect="auto",
     color_continuous_scale='RdYlGn',
-    color_continuous_midpoint=benchmarks['Quota Attainment']['value'], # Use 75% as the midpoint
-    title="Rep Quota Attainment % by Month"
+    color_continuous_midpoint=benchmarks['Quota Attainment']['value'], # 75% midpoint
+    title="Rep Quota Attainment % by Month",
+    labels=dict(x="Sales Rep", y="Month", color="Attainment")
 )
+
+# Format the y-axis labels to be readable month names
+fig_heatmap.update_yaxes(tickformat='%b %Y',dtick="M1")
+
 st.plotly_chart(fig_heatmap, use_container_width=True)
 
 st.divider()

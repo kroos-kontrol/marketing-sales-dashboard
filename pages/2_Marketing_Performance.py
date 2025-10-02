@@ -38,11 +38,14 @@ if marketing_df is None:
 
 # --- Benchmarks Data (UPDATED) ---
 benchmarks = {
-    "MRR per Dollar Spend": {"value": 0.17, "source": "derived using 4:1 ROAS (24M LTV)", "url": "https://callin.io/b2b-saas-marketing-benchmarks/"},
+    "MRR per Dollar Spend": {"value": 0.21, "source": "derived using 3:1 LTV:CAC Ratio (36M LTV)", "url": "https://callin.io/b2b-saas-marketing-benchmarks/"},
     "MQL to SAL Rate": {"value": 0.61, "source": "Data Mania & Gartner", "url": "https://www.data-mania.com/blog/mql-to-sql-conversion-rate-benchmarks-2025/"},
-    "SAL to SQL Rate": {"value": 0.18, "source": "Gartner Sales Development Metrics", "url": "https://www.gartner.com/smarterwithgartner/sales-development-metrics-assessing-low-conversion-rates"},
+    "SAL to SQL Rate": {"value": 0.40, "source": "Gartner Sales Development Metrics", "url": "https://www.gartner.com/smarterwithgartner/sales-development-metrics-assessing-low-conversion-rates"},
     "SQL to Closed Rate": {"value": 0.20, "source": "Gartner Sales Development Metrics", "url": "https://www.gartner.com/smarterwithgartner/sales-development-metrics-assessing-low-conversion-rates"}
 }
+# Cross Functional Assumptions:
+GROSS_MARGIN = 0.80 # 80%
+SALES_COST_MULTIPLIER = 5 # Total S&M Spend = Campaign Cost * 5
 
 # --------------------
 # Main Page Content
@@ -129,6 +132,10 @@ st.subheader("Campaign Performance Matrix")
 # Calculate MQL to Closed Rate for the scatter plot
 marketing_df['mql_to_closed_rate'] = marketing_df['closed'] / marketing_df['mql']
 
+# Define the benchmarks for this chart
+cpa_benchmark = 4000
+conversion_benchmark = 0.05 # 5%
+
 fig_bubble = px.scatter(
     marketing_df,
     x="cpa_closed",
@@ -136,16 +143,34 @@ fig_bubble = px.scatter(
     size="mrr",
     color="campaign_name",
     hover_name="campaign_name",
-    size_max=60, # Adjust for bubble size scaling
-    labels={
-        "cpa_closed": "Cost per Closed Customer (Lower is Better)",
-        "mql_to_closed_rate": "MQL to Closed Conversion Rate (Higher is Better)",
+    size_max=60,
+    labels={ # UPDATED: Label with $
+        "cpa_closed": f"Campaign Cost per Closed Customer ($) - Lower is Better",
+        "mql_to_closed_rate": "MQL to Closed Conversion Rate (%) - Higher is Better",
         "mrr": "Total MRR"
     },
     title="Campaign Efficiency vs. Effectiveness"
 )
 
+# NEW: Add benchmark lines to create quadrants
+fig_bubble.add_vline(
+    x=cpa_benchmark,
+    line_width=2, line_dash="dash", line_color="red",
+    annotation_text=f"CPA Benchmark (${cpa_benchmark:,.0f})",
+    annotation_position="bottom right"
+)
+fig_bubble.add_hline(
+    y=conversion_benchmark,
+    line_width=2, line_dash="dash", line_color="red",
+    annotation_text=f"Conversion Benchmark ({conversion_benchmark:.0%})",
+    annotation_position="bottom right"
+)
+
 fig_bubble.update_layout(showlegend=False)
+# Format axes as currency and percentage
+fig_bubble.update_xaxes(tickprefix="$", tickformat=",.0f")
+fig_bubble.update_yaxes(tickformat=".1%")
+
 st.plotly_chart(fig_bubble, use_container_width=True)
 
 st.markdown("---")
