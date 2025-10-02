@@ -13,7 +13,7 @@ st.set_page_config(
 # --------------------
 # Sidebar
 # --------------------
-st.logo("assets/sprinto_logo.png")
+# st.logo("assets/big_logo.png")
 
 # --------------------
 # Data Loading and Baseline Calculation
@@ -94,45 +94,59 @@ with col1:
     with st.expander("🚀 Marketing Levers", expanded=True):
         st.markdown(
             """
-            - **Recommendation:** Implement an automated lead nurturing sequence for MQLs.
-            - **Assumed Impact:** This could improve the `MQL-to-SAL` conversion rate by **10%**.
+            - **Recommendation:** Implement MEDDICC framework for qualification of leads from SAL to SQL.
+            - **Assumed Impact:** This could improve the `SQL-to-Win` conversion rate by **10%**.
             """
         )
         st.markdown("---")
         st.markdown(
             """
-            - **Recommendation:** Refine ad targeting to focus on higher-intent keywords.
-            - **Assumed Impact:** This could increase the `SAL-to-SQL` conversion rate by **5%**.
+            - **Recommendation:** Optimize follow-ups for underperforming campaigns (e.g., Chicago & Hong Kong Sales Conferences).
+            - **Assumed Impact:** Could improve `SQL-to-Trial` conversion by **3-5%**.
+            """
+        )
+        st.markdown("---")
+        st.markdown(
+            """
+            - **Recommendation:** Double down on top-performing campaigns (Use case based Seminars).
+            - **Assumed Impact:** Could increase the `Trial Volume` by **15%**.
             """
         )
 
     with st.expander("💰 Sales Levers", expanded=True):
         st.markdown(
             """
-            - **Recommendation:** Implement a value-based selling training program for the sales team.
-            - **Assumed Impact:** This could increase the `Average Deal Size` by **$1,500**.
+            - **Recommendation:** Introduce a rigorous SQL qualification and lead assignment review.
+            - **Assumed Impact:** Could improve `Win Rate` by **5-7%**.
             """
         )
         st.markdown("---")
         st.markdown(
             """
-            - **Recommendation:** Introduce a more rigorous qualification process at the SQL stage.
-            - **Assumed Impact:** This could improve the `Win Rate` by **5%**.
+            - **Recommendation:** Analyze top-performing reps and replicate the playbook across the team.
+            - **Assumed Impact:** This could increase the percentage of reps meeting quota by **10-15%**.
+            """
+        )
+        st.markdown("---")
+        st.markdown(
+            """
+            - **Recommendation:** Focus on coaching middle performers to improve pipeline management.
+            - **Assumed Impact:** Could increase overall team quota attainment by **5-8%**.
             """
         )
 
     with st.expander("🤝 Customer Success Levers", expanded=True):
         st.markdown(
             """
-            - **Recommendation:** Launch a proactive customer onboarding program.
-            - **Assumed Impact:** This could decrease the `Monthly Revenue Churn Rate` by **0.1%**.
+            - **Recommendation:** Drive expansion revenue through upsell/cross-sell programs.
+            - **Assumed Impact:** Could create a `Monthly Expansion Rate` of **0.5-1%**, improving NRR.
             """
         )
         st.markdown("---")
         st.markdown(
             """
-            - **Recommendation:** Introduce a new feature tier for existing customers.
-            - **Assumed Impact:** This could create a `Monthly Expansion Rate` of **0.5%**.
+            - **Recommendation:** Engage long-term customer champions for referral and marketing campaigns.
+            - **Assumed Impact:** Could increase `Lead Quality` and improve `SQL-to-Close` conversion by **3-5%**.
             """
         )
 
@@ -186,7 +200,7 @@ with col2:
     nrr = ((current_mrr + expansion_mrr - churned_mrr) / current_mrr) if current_mrr > 0 else 0
 
     # Project ARR in 12 months
-    projected_arr = (current_mrr + (net_new_mrr * 12)) * 12
+    # projected_arr = (current_mrr + (net_new_mrr * 12)) * 12
 
     with output_col:
         st.subheader("Projections (Outputs)")
@@ -203,7 +217,7 @@ with col2:
         st.markdown("##### Overall Revenue Growth")
         st.metric("Net New MRR / mo", f"${net_new_mrr:,.0f}")
         st.metric("Net Revenue Retention (NRR)", f"{nrr:.1%}")
-        st.metric("Projected ARR in 12 Months", f"${projected_arr:,.0f}")
+        # st.metric("Projected ARR in 12 Months", f"${projected_arr:,.0f}")
 
     st.divider()
 
@@ -225,7 +239,7 @@ st.warning(
 st.subheader("Benchmark Sources")
 st.markdown(
     """
-    - **4x Pipeline Coverage:** Sourced from [Best Practices for B2B Sales](#). *(You can add the specific URL here)*
-    - **92-day Sales Cycle:** Sourced from [GRC Software Benchmark Report](#). *(You can add the specific URL here)*
+    - **4x Pipeline Coverage:** Sourced from [SaaStr](https://www.saastr.com/dear-saastr-what-are-good-benchmarks-for-sales-productivity-in-saas/#:~:text=6,marketing%20isn%E2%80%99t%20generating%20sufficient%20leads).
+    - **92-day Sales Cycle:** Sourced from [The Bridge Group](https://www.cfodesk.co.il/wp-content/uploads/2023/09/SaaS_AE_Metrics.pdf).
     """
 )

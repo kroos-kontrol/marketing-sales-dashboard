@@ -15,7 +15,7 @@ st.set_page_config(
 # --------------------
 # Sidebar
 # --------------------
-st.logo("assets/sprinto_logo.png")
+# st.logo("assets/1.png",size="large")
 
 # --------------------
 # Data Loading and Preparation
@@ -231,25 +231,76 @@ st.divider()
 st.subheader("Analyst Insights")
 st.info(
     """
-    - **What's Going Well:** The sales team is consistently performing above the 75% quota attainment benchmark. Manager 2's team, in particular, shows strong and consistent performance across all reps.
-    - **Areas for Improvement:** While attainment is high, only 40% of reps are meeting their individual quotas, falling short of the 50% benchmark. This suggests that a few top performers may be masking a larger group of reps who are struggling. Rep 8, for example, shows highly volatile performance.
+📊 **Overall Sales Performance**
+
+1) **Quota Attainment Above Benchmark:**  
+Overall quota attainment stands at 90%, slightly above benchmark, indicating that the sales engine is performing reasonably well.
+
+2) **Team-Level Performance Gap:**  
+Despite decent overall performance, only 38.1% of sales reps are achieving their quota, compared to the industry benchmark of >51%. This highlights potential inconsistencies in individual performance or team enablement.
+
+3) **Reasonable pipeline coverage:** The pipeline (SQL) shows healthy volume and the lower then benchmark win rate showcases that the company is not starved of opportunities.
+
+🌟 **Top Performers**
+
+1) **Individual Rep Performance:**  
+- 3 sales reps achieved 1.5× their quota, demonstrating exceptional performance.  
+- 7 sales reps overachieved their quota, showing pockets of high efficiency.
+
+2) **Manager Performance:**  
+- Manager 3 is outperforming benchmarks with an overall quota attainment of 109.8%, and 62.5% of his team achieved their quotas, indicating strong leadership and effective coaching.
+
+🚩 **Areas for Improvement**
+
+1) **Manager-Level Gaps:**  
+- Manager 1 & 2: While managers themselves achieved ~90% of their quota, only 1/3 of their teams met their individual quotas.  
+- Manager 4: Did not meet benchmark performance; none of the reps in his team achieved quota. The team only overachieved monthly quotas in 2 out of 9 months.
+
+2) **Individual Rep Concerns:**  
+- Rep 2 and Rep 17 experienced a month of negative sales, possibly due to past sales opting out. This may indicate issues in sales commitments or onboarding/ramp-up processes.
     """
 )
+
 
 st.subheader("Recommended Actions & Levers")
 st.success(
     """
-    - **For Standout Reps (e.g., Rep 1, Rep 5):** Analyze their deal cycles and strategies. Can their techniques be documented and used as a blueprint for training other reps?
-    - **For Underperforming Reps (e.g., Rep 8):** Implement a Performance Improvement Plan (PIP). The heatmap shows inconsistent results, suggesting a potential need for more coaching on pipeline management or closing skills.
-    - **For the Org:** Focus on coaching the large group of "middle performers." A small improvement across this group will have a greater impact on overall sales than trying to make top performers even better.
+**Recommendations and Levers**
+
+1) **Review Lead Assignment:**  
+- Check if leads from high-performing campaigns were skewed towards certain sales reps or managers.  
+- If so, the lead assignment system needs to be reviewed for fairness and balance.
+
+2) **Ramp-Up Process for New Reps/Managers:**  
+- Identify any sales reps or managers (e.g.Rep 18, Manager 4) who are new to the team and currently ramping up.  
+- Improve/personalise the ramp-up process to accelerate their performance.
+
+3) **Leverage Standout Reps:**  
+- For high-performing reps (e.g., Rep 1, Rep 8, Rep 16), analyze their deal cycles and strategies.  
+- Document their techniques to create a blueprint for creating playbooks and training other reps.
+
+4) **Support Underperforming Reps:**  
+- For underperforming reps (e.g., Rep 18, Rep 9, Rep 7, Rep 14):  
+  - Conduct ideation discussions on campaign or operational improvements to help them achieve targets.
+  - Run a "Rep Audit" where closed lost deals (notes, calls), pipeline aging, are reviewed.   
+  - Implement hands-on training by sales managers with frequent reviews.  
+  - The performance heatmap suggests more coaching on pipeline management and closing skills may be needed.
+
+5) **Replicate Best Practices from Top Managers:**  
+- Understand Manager 3’s coaching and closing methods.  
+- Consider knowledge transfer and best practices sessions led by Manager 3.
+
+6) **Focus on Middle Performers:**  
+- Prioritize coaching the large group of "middle performers."  
+- Small improvements across this group will have a greater impact on overall sales than further improving top performers.
     """
 )
+
 
 st.subheader("Assumptions")
 st.warning(
     """
     - **Average Deal Size:** The ADS is calculated as a monthly company-wide average from the service data, not on a per-rep basis.
-    - **Sales Velocity:** The number of opportunities is a placeholder value. For a more accurate calculation, this should be linked to the SALs from the marketing data.
     - **Negative Sales:** Negative sales values are treated as deal reversals or clawbacks and are included in the total sales calculations.
     """
 )

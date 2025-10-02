@@ -15,7 +15,7 @@ st.set_page_config(
 # --------------------
 # Sidebar
 # --------------------
-st.logo("assets/sprinto_logo.png")
+# st.logo("assets/sprinto_logo.png")
 
 # --------------------
 # Data Loading and Preparation
@@ -62,7 +62,7 @@ benchmarks = {
 # Main Page Content
 # --------------------
 st.title(" Customer Success Dashboard")
-st.markdown("Analyze customer retention, revenue churn, and account growth.")
+# st.markdown("Analyze customer retention, revenue churn, and account growth.")
 
 # --- Filters ---
 # st.sidebar.header("Filters")
@@ -197,17 +197,47 @@ st.divider()
 st.subheader("Analyst Insights")
 st.info(
     """
-    - **Strong Foundation:** Gross Revenue Retention (GRR) is consistently high, hovering around the 95% benchmark. This indicates the team is very effective at retaining its existing customer revenue base.
-    - **The Growth Lever:** The primary area for improvement is the lack of Expansion MRR. The gap between the current GRR and the top-tier 120% NRR target highlights a significant opportunity. Hitting this target requires a proactive strategy for upselling and cross-selling to the current customer base.
-    - **Churn Stability:** Monthly revenue churn is low and stable, staying below the healthy target rate. This is a key strength.
+📊 **Overall Services Team Performance**
+
+- **Strong Customer Retention:**  
+  - The team has excelled in retaining customers, both in dollar terms and in total customers.  
+  - **Revenue churn** and **customer churn** are well below industry benchmarks:  
+    - Average Monthly Revenue Churn: 0.04% (vs 0.4% benchmark)  
+    - Average Monthly GRR: 99.9% (vs >90% benchmark)  
+  - Monthly customer churn rates are trending downwards, reflecting the team’s effectiveness in logo retention.
+
+- **Increasing Revenue per Account (ARPA):**  
+  - ARPA has been trending upwards, indicating strong account management and satisfaction.
+
+🚀 **Areas for Improvement**
+
+- **Focus on Expansion Revenue:**  
+  - Currently, all Growth MRR is coming from New Business, suggesting limited upsell or cross-sell activity.  
+  - To meet the Net Revenue Retention (NRR) benchmark >120%, the Services team should increase expansion revenue from existing accounts.
     """
 )
+st.subheader("Recommendations and Levers")
+st.success(
+    """
+**Services Team Recommendations**
+
+1) **Drive Expansion Revenue:**  
+- Identify opportunities to upsell or cross-sell within the existing customer base to boost Growth MRR and help achieve the Net Revenue Retention (NRR) benchmark of >120%.
+
+2) **Leverage Customer Champions for Marketing Initiatives:**  
+- Engage long-term, satisfied customers to support marketing campaigns similar to the "Cloud Best Practices Seminar."  
+- Enable these champions to participate in or lead seminars, sharing use cases and best practices.
+
+3) **Support Sales Through Referrals:**  
+- Collaborate with the Sales team to generate warmer introductions via referrals from existing customers, helping accelerate deal cycles and improve conversion rates.
+    """
+)
+
 
 st.subheader("Assumptions")
 st.warning(
     """
     - **Expansion MRR:** The dataset does not contain Expansion MRR from existing customers. The 'growth_mrr' is assumed to be from new business only. As a result, Net Revenue Retention (NRR) cannot be calculated and is modeled as a target.
-    - **ARR vs. MRR:** The 'book_of_business' columns are assumed to represent Monthly Recurring Revenue (MRR) for the purpose of these calculations, as the growth and churn figures are also monthly.
     """
 )
 

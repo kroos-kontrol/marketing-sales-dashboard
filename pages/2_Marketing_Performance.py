@@ -10,7 +10,7 @@ st.set_page_config(page_title="Marketing Performance", page_icon="🔬", layout=
 # --------------------
 # Sidebar
 # --------------------
-st.logo("assets/sprinto_logo.png")
+# st.logo("assets/large_logo.png")
 
 # --------------------
 # Data Loading & Preparation
@@ -51,7 +51,7 @@ SALES_COST_MULTIPLIER = 5 # Total S&M Spend = Campaign Cost * 5
 # Main Page Content
 # --------------------
 st.title("🔬 Marketing Performance Dashboard")
-st.markdown("Analyze campaign performance, funnel conversions, and return on investment.")
+# st.markdown("Analyze campaign performance, funnel conversions, and return on investment.")
 
 campaign_options = ['All Campaigns'] + list(marketing_df['campaign_name'].unique())
 st.sidebar.header("Filters")
